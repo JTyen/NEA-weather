@@ -22,6 +22,7 @@ if st.button("Get Weather Outlook"):
         for record in records:
             date = record['date']
             for forecast in record['forecasts']:
+                # Now we associate the forecast with the correct date from the record
                 st.write(f"**Date:** {date} ({forecast['day']})")
                 st.write(f"**Forecast:** {forecast['forecast']['text']}")
                 st.write(f"**Summary:** {forecast['forecast']['summary']}")
