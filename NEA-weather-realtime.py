@@ -1,6 +1,5 @@
 import streamlit as st
 import requests
-from datetime import datetime, timedelta
 
 # Function to get weather data
 def get_weather():
@@ -20,8 +19,8 @@ if st.button("Get Weather Outlook"):
         st.write("### 4-Day Weather Outlook")
         
         records = weather_data['data']['records']
-        for i, record in enumerate(records):
-            date = (datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d")
+        for record in records:
+            date = record['date']
             for forecast in record['forecasts']:
                 st.write(f"**Date:** {date} ({forecast['day']})")
                 st.write(f"**Forecast:** {forecast['forecast']['text']}")
