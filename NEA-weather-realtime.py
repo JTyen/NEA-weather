@@ -20,10 +20,10 @@ if st.button("Get Weather Outlook"):
         
         records = weather_data['data']['records']
         for record in records:
-            date = record['date']
+            date = record['date']  # This date is the same for all forecasts in the record
             for forecast in record['forecasts']:
-                # Now we associate the forecast with the correct date from the record
-                st.write(f"**Date:** {date} ({forecast['day']})")
+                # Ensure the forecast corresponds to the correct date
+                st.write(f"**Date:** {forecast['timestamp'][:10]} ({forecast['day']})")
                 st.write(f"**Forecast:** {forecast['forecast']['text']}")
                 st.write(f"**Summary:** {forecast['forecast']['summary']}")
                 st.write(f"**Temperature (°C):** {forecast['temperature']['low']} - {forecast['temperature']['high']}")
@@ -32,3 +32,4 @@ if st.button("Get Weather Outlook"):
                 st.write("---")
     else:
         st.error("Could not retrieve weather data. Please try again later.")
+
