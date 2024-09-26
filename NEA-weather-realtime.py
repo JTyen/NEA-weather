@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from datetime import datetime, timedelta
 
 # Function to get weather data
 def get_weather():
@@ -17,10 +18,12 @@ if st.button("Get Weather Outlook"):
     weather_data = get_weather()
     if weather_data:
         st.write("### 4-Day Weather Outlook")
+        
         records = weather_data['data']['records']
-        for record in records:
+        for i, record in enumerate(records):
+            date = (datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d")
             for forecast in record['forecasts']:
-                st.write(f"**Date:** {record['date']} ({forecast['day']})")
+                st.write(f"**Date:** {date} ({forecast['day']})")
                 st.write(f"**Forecast:** {forecast['forecast']['text']}")
                 st.write(f"**Summary:** {forecast['forecast']['summary']}")
                 st.write(f"**Temperature (°C):** {forecast['temperature']['low']} - {forecast['temperature']['high']}")
@@ -28,4 +31,4 @@ if st.button("Get Weather Outlook"):
                 st.write(f"**Wind Speed (km/h):** {forecast['wind']['speed']['low']} - {forecast['wind']['speed']['high']}")
                 st.write("---")
     else:
-        st.error("Could not retrieve weather data.")
+        st.error("Could not retrieve weather data. Please try again later.")
